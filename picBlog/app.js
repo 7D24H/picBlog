@@ -67,43 +67,6 @@ app.use(function(req, res, next){
 //路由配置全在routes里，不放在app.js里，太累赘
 routes(app);//要放在static前面，不然它会直接根据get后面的信息去public里找有没有符合的静态文件，就不管路由方法里是什么了
 
-// app.dynamicHelpers({
-//     user:function(req,res){
-//         return req.session.user;
-//     },
-//     error:function(req,res){
-//         var err=req.flash('error');
-//         if(err.length)
-//             return err;
-//         else
-//             return null;
-//     },
-//     success:function(req,res){
-//         var succ=req.flash('success');
-//         if(succc.length)
-//             return succ;
-//         else
-//             return null;
-//     },
-// });
-
-// //set flash
-// app.use(function(req,res,next){
-//
-//     res.locals.user=req.session.user;
-//     res.locals.post = req.session.post;
-//
-//     var err = req.flash('error');
-//     var success = req.flash('success');
-//
-//     res.locals.error = err.length ? err : null;
-//     res.locals.success = success.length ? success : null;
-//
-//     next();
-// });
-
-
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));

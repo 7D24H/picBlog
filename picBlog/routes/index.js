@@ -48,7 +48,7 @@ module.exports = function(app) {
                 }
                 req.session.user = newUser;
                 req.flash('success', '註冊成功');
-                res.redirect('/');
+                res.redirect('/login');
             });
         });
     });
@@ -77,7 +77,7 @@ module.exports = function(app) {
             }
             req.session.user = user;
             req.flash('success', '登入成功');
-            res.redirect('/');
+            res.redirect('/showBoard');
         });
     });
 
@@ -87,6 +87,15 @@ module.exports = function(app) {
         req.flash('success', '登出成功');
         res.redirect('/');
     });
+
+
+    app.get('/showBoard',checkLogin);
+    app.get('/showBoard',function(req,res){
+        console.log("username is :",req.session.user.name);
+        res.render('showBoard',{username:req.session.user.name});
+    })
+
+
 };
 
 function checkLogin(req, res, next) {
