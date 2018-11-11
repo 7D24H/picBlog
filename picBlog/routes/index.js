@@ -77,7 +77,7 @@ module.exports = function(app) {
             }
             req.session.user = user;
             req.flash('success', '登入成功');
-            res.redirect('/showBoard');
+            res.redirect('showBoard');
         });
     });
 
@@ -100,7 +100,7 @@ module.exports = function(app) {
 
 function checkLogin(req, res, next) {
     if (!req.session.user) {
-        req.flash('error', '未登入');
+        req.flash('error', 'Please login first');
         return res.redirect('/login');
     }
     next();
@@ -108,7 +108,7 @@ function checkLogin(req, res, next) {
 
 function checkNotLogin(req, res, next) {
     if (req.session.user) {
-        req.flash('error', '已登入');
+        req.flash('error', 'Have logged in');
         return res.redirect('/');
     }
     next();

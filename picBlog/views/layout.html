@@ -4,6 +4,7 @@
 <head>
     <title>Music - Microblog</title>
     <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <!--<link rel='stylesheet' href='/stylesheets/style.css' />-->
     <style type="text/css">
         body {
             padding-top: 60px;
@@ -22,15 +23,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="/">Microblog</a>
+            <a class="brand" href="/">MusicBlog</a>
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li class="active"><a href="/">首頁</a></li>
+                    <li class="active"><a href="/">Home</a></li>
                     <% if (!user) { %>
-                    <li><a href="/login">登入</a></li>
-                    <li><a href="/reg">註冊</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
                     <% } else { %>
-                    <li><a href="/logout">登出</a></li>
+                    <li><a href="/logout">Logout</a></li>
                     <% } %>
                 </ul>
             </div>
@@ -50,10 +51,9 @@
     </div>
     <% } %>
     <%- body %>
-    <hr />
-    <footer>
-        <p><a href="http://www.byvoid.com/" target="_blank">BYVoid</a> 2012</p>
-    </footer>
+    <!--<footer>-->
+        <!--<p><a href="http://https://github.com" target="_blank">7D24H</a> 2018</p>-->
+    <!--</footer>-->
 </div>
 </body>
 <script src="/javascripts/jquery.js"></script>

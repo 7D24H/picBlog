@@ -78,8 +78,16 @@ button:hover{
     background-color: rgba(67, 67, 67, 0.71);
 }
 
+#username{
+    color:white;
+    float:right;
+    margin-top:-5px;
+    position:relative;
+    font-size:larger;
+}
+
 #showBoard{
-    margin-top:50px;
+    margin-top:10px;
     display:inline-block;
 }
 
