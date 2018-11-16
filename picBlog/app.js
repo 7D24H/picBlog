@@ -12,6 +12,7 @@ var session    = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var settings = require('./settings');
 var flash = require('connect-flash');
+var favicon = require('static-favicon');
 var app = express();
 
 
@@ -37,6 +38,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cookieParser());//cookie解析的中间件
+app.use(favicon(path.join(__dirname,'public/images/util/logo.ico')));//设置浏览器上面的logo
 
 //flash在routes前面
 app.use(flash());
@@ -53,7 +55,7 @@ app.use(session({
 
 //设置flash,flash在routes前面
 app.use(function(req, res, next){
-    console.log("app.usr local");
+    // console.log("app.usr local");
     res.locals.user = req.session.user;
     res.locals.post = req.session.post;
     var error = req.flash('error');

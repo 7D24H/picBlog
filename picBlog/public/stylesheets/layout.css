@@ -1,0 +1,77 @@
+@font-face {
+    font-family:RifficFree-Bold;
+    src:url("/font/RifficFree-Bold.ttf");
+}
+
+.title{
+    font-family:RifficFree-Bold;
+    font-weight: lighter;
+}
+
+#headTitle{
+    font-size:30px;
+    padding-top:15px;
+}
+
+#titleLogo{
+    /*background-color: rgba(174, 126, 84, 0.98);*/
+    background-image: url("/images/util/music-double.png");
+    background-repeat: no-repeat;
+    background-size:35px 35px;
+    background-position:0 0 ;
+
+    weight:35px;
+    height:35px;
+    color: rgba(255, 0, 0, 0);
+}
+
+.navbar-inner{/*大横条 而且是要background*/
+    background: rgb(114, 78, 156);
+}
+
+.nav-collapse{/*下拉条以及大横条中间那一块*/
+    background: rgba(114, 78, 156, 0.59);
+}
+
+.btn-navbar {
+    background-color: rgba(79, 55, 106, 0.9);
+}
+
+.a,.li,.brand,.nav,.container,.navbar-inner,.nav-collapse{
+    /*background-color: #00B7FF;*/
+    height:60px;
+}
+
+.nav{
+    padding-top:12px;
+    font-size:15px;
+}
+
+#regBtn{
+    background-color: rgba(255, 244, 255, 0.88);
+    color: #724e9c;
+    font-weight: bold;
+    border:solid 0px;
+    border-radius: 10px;
+    height:33px;
+    width:80px;
+    margin-top:-8px;
+    cursor:pointer;
+}
+
+.log{
+    color: rgba(255, 255, 255, 0.91);
+    font-weight:normal;
+}
+
+.log:hover{
+    color:white;
+    font-weight:bolder;
+}
+
+#regBtn:hover{
+    background-color: rgb(255, 255, 255);
+    color: #191123;
+    border:30px #3e2c59;
+    margin-top:-7px;
+}

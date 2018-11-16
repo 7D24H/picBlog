@@ -3,9 +3,11 @@ var User = require('../models/user.js');
 
 module.exports = function(app) {
     app.get('/', function(req, res) {
-        res.render('index', {
-            title: '首頁'
-        });
+        if(req.cookies.user !== null){
+            req.user=req.cookies.user;
+        }
+        console.log("req.cookies==",req.cookies.user);
+        res.render('home');
     });
 
     app.get('/register', checkNotLogin);
@@ -65,8 +67,9 @@ module.exports = function(app) {
         //生成口令的散列值
         var md5 = crypto.createHash('md5');
         var password = md5.update(req.body.password).digest('base64');
+        var username = req.body.username;
 
-        User.get(req.body.username, function(err, user) {
+        User.get(username, function(err, user) {
             if (!user) {
                 req.flash('error', '用戶不存在');
                 return res.redirect('/login');
@@ -77,6 +80,7 @@ module.exports = function(app) {
             }
             req.session.user = user;
             req.flash('success', '登入成功');
+            res.cookie("username",username,{maxAge:600000,httpOnly:false});
             res.redirect('showBoard');
         });
     });
@@ -85,6 +89,7 @@ module.exports = function(app) {
     app.get('/logout', function(req, res) {
         req.session.user = null;
         req.flash('success', '登出成功');
+        res.clearCookie('username');
         res.redirect('/');
     });
 
