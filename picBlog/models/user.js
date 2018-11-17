@@ -63,3 +63,14 @@ User.get = function get(username, callback) {
     });
   });
 };
+
+
+// var mongoose = require('./db'),
+//     Schema = mongoose.Schema;
+//
+// var UserSchema = new Schema({
+//     username : String,
+//     password : String
+// })
+//
+// module.exports = mongoose.model('User',UserSchema);

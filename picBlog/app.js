@@ -10,9 +10,14 @@ var ejs = require('ejs');
 var expressLayouts = require('express-ejs-layouts');
 var session    = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+var mongoose = require('mongoose');
+var fs = require('fs');
 var settings = require('./settings');
 var flash = require('connect-flash');
 var favicon = require('static-favicon');
+
+
+
 var app = express();
 
 
@@ -30,7 +35,12 @@ app.use(expressLayouts);
 app.set('port',process.env.PORT||3000);
 
 //bodyparse设置
-app.use(bodyParser.urlencoded({extended:true}));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended:true}));
+
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 
 app.use(logger('dev'));
 app.use(express.json());

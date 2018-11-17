@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>SinglePic</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/stylesheets/singlePic.css">
+
+    <link rel="stylesheet" href="/stylesheets/cropper.css">
+
+
+</head>
+
+<body>
+
+<!--<select name="yourName" id="yourId">-->
+<!--<option value="1">1</option>-->
+<!--<option value="2">2</option>-->
+<!--<option value="3">3</option>-->
+<!--<option value="4">4</option>-->
+<!--<option value="5">5</option>-->
+<!--</select>-->
+
+<form method="get" action="upload.html"> <!要有那个点！>
+    <button id="back" type="submit">Back</button>
+</form>
+
+<section id="input">
+    <input id="inputFile" type="file" name="file" onchange="imgPreview(this)">
+</section>
+
+<button class="funBtn" id="edit" type="submit">Edit</button>
+<div id="btnBar">
+    <button class="funBtn" id="saveBtn" type="submit" onclick="">Save</button>
+    <button class="funBtn" id="rotateRight" type="submit"></button>
+    <br>
+    <button class="funBtn" id="rotateLeft" type="submit"></button>
+    <br>
+    <button class="funBtn" id="oneToOne" type="submit">1:1</button>
+    <br>
+    <button class="funBtn" id="twoToThree" type="submit">2:3</button>
+    <br>
+    <button class="funBtn" id="threeToFour" type="submit">3:4</button>
+    <br>
+    <button class="funBtn" id="nineToSixteen" type="submit">9:16</button>
+    <br>
+    <button class="funBtn" id="free" type="submit">free</button>
+</div>
+
+<br>
+
+<form class="showPic" method="post" enctype="multipart/form-data">
+    <section id="border">
+        <!--<canvas id="canvasImg">-->
+            <img id="image" />
+        <!--</canvas>-->
+    </section>
+    <section class="small"></section>
+</form>
+
+
+
+<!--<h3>Result</h3>-->
+
+<!--&lt;!&ndash;<div id="result"></div>&ndash;&gt;-->
+<!--<img id="result" src="">-->
+
+
+<script src="/javascripts/cropper.js"></script>
+<script  src="/javascripts/singlePic.js" charset="UTF-8"></script>
+</body>
+</html>
