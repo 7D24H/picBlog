@@ -80,7 +80,7 @@ module.exports = function(app) {
             }
             req.session.user = user;
             req.flash('success', '登入成功');
-            res.cookie("username",username,{maxAge:600000,httpOnly:false});
+            res.cookie("user",username,{maxAge:6000000,httpOnly:false});
             res.redirect('showBoard');
         });
     });
