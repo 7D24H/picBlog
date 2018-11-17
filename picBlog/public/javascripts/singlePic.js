@@ -189,7 +189,8 @@ edit.addEventListener("click",function(){
             imageSmoothingQuality: 'high',
         });
 
-        var img = crop.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        var img = crop.toDataURL("image/png");
+        // var img = crop.toDataURL("image/png").replace("image/png", "image/octet-stream");
         // window.location.href=local; // it will save locally 
         //
         var img2=img.split(',')[1];

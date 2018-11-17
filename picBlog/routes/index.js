@@ -170,9 +170,14 @@ module.exports = function(app) {
         //这个成功有base64
         var imgData = req.body.imgData;
         //过滤data:URL
-        var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
+        var base64Data0 = imgData.replace(/^data:image\/\w+;base64,/, "");
+
+        // var base64Data = base64Data.replaceAll(" ","+");
+        var base64Data = base64Data0.replace(/\s/g,"+");//空格要替换成加号！！！！！
+
+        console.log("base64",base64Data.substr(0,20));
         var dataBuffer = new Buffer(base64Data, 'base64');
-        fs.writeFile("image.png", dataBuffer, function(err) {
+        fs.writeFile("./public/uploads/image.png", dataBuffer, function(err) {
             if(err){
                 res.send(err);
             }else{
