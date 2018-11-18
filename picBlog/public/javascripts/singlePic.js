@@ -193,19 +193,19 @@ edit.addEventListener("click",function(){
         // var img = crop.toDataURL("image/png").replace("image/png", "image/octet-stream");
         // window.location.href=local; // it will save locally 
         //
-        var img2=img.split(',')[1];
-        img2=window.atob(img2);
-        // console.log("!!img atob",img);
-        var ia = new Uint8Array(img2.length);
-        for (var i = 0; i < img2.length; i++) {
-            ia[i] = img.charCodeAt(i);
-        };
-
-        var blob=new Blob([ia], {type:"image/png"});
-        // console.log("!!blob",blob);
-
-        var formdata=new FormData();
-        formdata.append('file',blob);
+        // var img2=img.split(',')[1];
+        // img2=window.atob(img2);
+        // // console.log("!!img atob",img);
+        // var ia = new Uint8Array(img2.length);
+        // for (var i = 0; i < img2.length; i++) {
+        //     ia[i] = img.charCodeAt(i);
+        // };
+        //
+        // var blob=new Blob([ia], {type:"image/png"});
+        // // console.log("!!blob",blob);
+        //
+        // var formdata=new FormData();
+        // formdata.append('file',blob);
         // console.log("!!formdata",formdata.get('file'));
 
         // $.ajax({
@@ -217,8 +217,6 @@ edit.addEventListener("click",function(){
         //     type : "POST",
         //     success : function(data){}
         // });
-
-
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(){
             if(xhr.readyState==4){
@@ -231,7 +229,6 @@ edit.addEventListener("click",function(){
         }
         xhr.open('POST','http://localhost:3000/test',true);
         xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  //formdata数据请求头需设置为application/x-www-form-urlencoded
-        console.log(formdata);
         xhr.send("imgData="+img);//要在前面加上键值 才能直接在req里取到
 
     })
