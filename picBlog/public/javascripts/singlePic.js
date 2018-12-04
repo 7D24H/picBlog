@@ -1,16 +1,3 @@
-// var fs = require('fs');
-
-function widthLonger(imgDom){
-    if(imgDom.width>imgDom.height){
-        console.log("width!"+imgDom.width);
-        imgDom.style.width="730px";
-        console.log("width???"+imgDom.width);
-    }else{
-        imgDom.style.height="520px";
-        console.log("width???"+imgDom.width);
-    }
-}
-
 function imgPreview(fileDom){
     //判断是否支持FileReader
     if (window.FileReader) {
@@ -40,50 +27,18 @@ function imgPreview(fileDom){
     reader.readAsDataURL(file);
     document.getElementById("edit").style.display="inline-block";
     console.log(document.getElementById("edit").style);
-    document.getElementById("inputFile").style.display="none";
+    document.getElementById("img-container").style.display="none";
+    document.getElementById("picShow").style.display="inline-flex";
 
     // document.getElementById("edit").click();
 
 }
 
-
-//
-// window.onload = function(){
-//     var current = 0;
-//     var img=document.getElementById("preview");
-//     document.getElementById('rotateBtn').onclick = function(){
-//         console.log("current "+current);
-//         current = (current+90)%360;
-//         img.style.transform = 'rotate('+current+'deg)';
-//         widthLonger(img,current);
-//     }
-// };
-//
-// var cropBtn=document.getElementById("crop");
-// cropBtn.addEventListener('click', function () {
-//
-//     var image = document.querySelector('#preview');
-//     var result = document.querySelector('#result');
-//     var cropper = new Cropper(image, {
-//         ready: function () {
-//             var image = new Image();
-//             image.src = cropper.getCroppedCanvas().toDataURL('image/jpeg');
-//             console.log("ready",image);
-//             result.setAttribute("src",image.src);
-//         },
-//     });
-//
-//     var btn = document.getElementById("ok");
-//     btn.addEventListener("click",function(){
-//         var image = new Image();
-//         image.src = cropper.getCroppedCanvas().toDataURL('image/jpeg');
-//         console.log("result",image.src);
-//         result.setAttribute("src",image.src);
-//     });
-// });
 var showPic=document.getElementsByClassName("showPic")[0];
 var border=document.getElementById("border");
 var small=document.getElementsByClassName("small")[0];
+
+var addBtn = document.querySelector('.img-up-add');//图形化的添加本地图片
 
 var btnBar=document.getElementById("btnBar");
 var edit=document.getElementById("edit");
@@ -98,16 +53,12 @@ var saveBtn=document.getElementById("saveBtn");
 
 var image=document.getElementById("image");
 
-
-// saveBtn.addEventListener("click",function(){
-//     image.cropper('getCroppedCanvas',{
-//         width:300,
-//         height:240
-//     }).toBlob(function(blob){
-//
-//         small.attr('src',URL.createObjectURL(blob));
-//     })
-// });
+// 为添加按钮绑定点击事件，设置选择图片的功能
+addBtn.addEventListener('click',function () {
+    document.querySelector('#img-file-input').value = null;
+    document.querySelector('#img-file-input').click();//外层的点击 隐藏的是选择文件！
+    return false;
+},false)//事件句柄在冒泡阶段执行（不重要 默认就是false)
 
 edit.addEventListener("click",function(){
     border.style.marginLeft="45px";//图片往左撤
@@ -118,11 +69,9 @@ edit.addEventListener("click",function(){
     edit.style.display="none";
 
     btnBar.style.display="inline-block";
-    rotateRight.style.backgroundImage="url(\"../assets/arrow-rotate-right.png\")"//不知道为什么重显以后加载不出背景图 再手动加一次
-    rotateLeft.style.backgroundImage="url(\"../assets/arrow-rotate-left.png\")";
-    //
-    // horizonTurn.style.backgroundImage="url(\"../assets/horizonTurn.png\")";
-    // verticalTurn.style.backgroundImage="url(\"../assets/verticalTurn.png\")";
+    rotateRight.style.backgroundImage="url(\"/images/util/arrow-rotate-right.png\")"//不知道为什么重显以后加载不出背景图 再手动加一次
+    rotateLeft.style.backgroundImage="url(\"/images/util/arrow-rotate-left.png\")";
+    saveBtn.style.backgroundImage="url(\"/images/util/ok-purple.png\")";
 
 
     var cropper = new Cropper(image, {
@@ -131,13 +80,6 @@ edit.addEventListener("click",function(){
         preview:".small",
         guides:false,
         crop: function (e) {
-            // console.log(e.detail.x);
-            // console.log(e.detail.y);
-            // console.log(e.detail.width);
-            // console.log(e.detail.height);
-            // console.log(e.detail.rotate);
-            // console.log(e.detail.scaleX);
-            // console.log(e.detail.scaleY);
         }
     });
 
@@ -190,38 +132,18 @@ edit.addEventListener("click",function(){
         });
 
         var img = crop.toDataURL("image/png");
-        // var img = crop.toDataURL("image/png").replace("image/png", "image/octet-stream");
-        // window.location.href=local; // it will save locally 
-        //
-        // var img2=img.split(',')[1];
-        // img2=window.atob(img2);
-        // // console.log("!!img atob",img);
-        // var ia = new Uint8Array(img2.length);
-        // for (var i = 0; i < img2.length; i++) {
-        //     ia[i] = img.charCodeAt(i);
-        // };
-        //
-        // var blob=new Blob([ia], {type:"image/png"});
-        // // console.log("!!blob",blob);
-        //
-        // var formdata=new FormData();
-        // formdata.append('file',blob);
-        // console.log("!!formdata",formdata.get('file'));
 
-        // $.ajax({
-        //     url : '/test',
-        //     data :  formdata,
-        //     processData : false,
-        //     contentType : false,
-        //     dataType: 'json',
-        //     type : "POST",
-        //     success : function(data){}
-        // });
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(){
             if(xhr.readyState==4){
                 if(xhr.status>=200&&xhr.status<=300||xhr.status==304){
-                    console.log("xhr.res",xhr.response)
+                    // var c=document.cookie;
+                    // var picC=c.split(';')[1];//picture的cookie在第二个 第一个是user
+                    // var pictureName=picC.substring(picC.indexOf('=')+1,picC.length);
+                    //
+                    // console.log("xhr.res",xhr.response);
+                    // console.log("cookie",pictureName);
+                    location.href=xhr.response; // 有ajax拦截 ajax以后再重定向要再前端手动写
                 }
             }else{
                 console.log(xhr.status)
@@ -230,7 +152,10 @@ edit.addEventListener("click",function(){
         xhr.open('POST','http://localhost:3000/test',true);
         xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  //formdata数据请求头需设置为application/x-www-form-urlencoded
         xhr.send("imgData="+img);//要在前面加上键值 才能直接在req里取到
+        xhr.send("hello="+'hello');
+
 
     })
 
 })
+

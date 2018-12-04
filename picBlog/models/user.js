@@ -55,6 +55,7 @@ User.get = function get(username, callback) {
         if (doc) {
           // 封裝文檔爲 User 對象
           var user = new User(doc);
+          // console.log("USER "+user.name);
           callback(err, user);
         } else {
           callback(err, null);

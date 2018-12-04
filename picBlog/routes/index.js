@@ -1,5 +1,6 @@
 var crypto = require('crypto');
 var User = require('../models/user.js');
+var Tag = require('../models/tag.js');
 // var fs = require('fs');
 // var bodyParser=require('body-parser');
 
@@ -31,7 +32,6 @@ module.exports = function(app) {
         res.setHeader('Access-Control-Allow-Headers','Content-Type');
         next();
     })
-
 
     app.get('/', function (req, res) {
         if (req.cookies.user !== null) {
@@ -139,82 +139,118 @@ module.exports = function(app) {
     });
 
     app.post('/test',function (req, res) {
-        // var form = new multiparty.Form();
-        // form.parse(req, function(err, fields, files){
-            //将前台传来的base64数据去掉前缀
-            // var imgData = fields.file[0].replace(/^data:image\/\w+;base64,/, '');
-            //
-            // var dataBuffer = new Buffer(imgData, 'base64');
-            // //写入文件
-            // fs.writeFile('image.png', dataBuffer, function(err){
-            //     if(err){
-            //         res.send(err);
-            //     }else{
-            //         res.send('保存成功');
-            //     }
-            // });
-
-            // fs.mkdir('./newdir', function(err) {
-            //     if (err) {
-            //         throw err;
-            //     }
-            //     console.log('make dir success.');
-            // });
-
-        // });
-        //
-        // res.send('POST发送成功了');
-
-
-
         //这个成功有base64
         var imgData = req.body.imgData;
         //过滤data:URL
         var base64Data0 = imgData.replace(/^data:image\/\w+;base64,/, "");
+        //空格要替换成加号！！！！！
+        var base64Data = base64Data0.replace(/\s/g,"+");
 
-        // var base64Data = base64Data.replaceAll(" ","+");
-        var base64Data = base64Data0.replace(/\s/g,"+");//空格要替换成加号！！！！！
-
-        console.log("base64",base64Data.substr(0,20));
         var dataBuffer = new Buffer(base64Data, 'base64');
-        fs.writeFile("./public/uploads/image.png", dataBuffer, function(err) {
+        var timestamp = Date.parse(new Date()).toString().substr(0,10);
+        fs.writeFile("./public/uploads/"+timestamp+".png", dataBuffer, function(err) {
             if(err){
                 res.send(err);
             }else{
-                res.send("保存成功！");
+                // windows.location('/writeForm');
+                // return res.send("保存成功！");
+                res.cookie("pictureName", timestamp, {maxAge: 6000000, httpOnly: false});
+                res.send('/writeForm');  //传回给了ajax前端浏览器
             }
         });
-        // console.log("databuffer",dataBuffer);
+        // req.flash('success', '保存成功');
 
-        // console.log("imgData",req.body.imgData);//这个会在控制台输出
-        // res.json(req.body.imgData);//这个会发回给前端输出 xhr.response
-
-
-        // var imgData = req.body.localImg;
-        //
-        // //过滤data:URL
-        //
-        // var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
-        //
-        // var dataBuffer = new Buffer(base64Data, 'base64');
-        //
-        // fs.writeFile("image.png", dataBuffer, function (err) {
-        //     if (err) {
-        //         res.send(err);
-        //     } else {
-        //         res.send("保存成功！");
-        //     }
-        // });
-        //
-        // fs.mkdir("./saveImg",function(err){
-        //     if(err){
-        //         throw err;
-        //     }
-        //     console.log("mkdir success");
-        // });
-
-
+        // return res.redirect('/writeForm');
     });
+
+    app.get('/writeForm',checkLogin);
+    app.get('/writeForm',function(req,res){
+        Tag.get("",function(err,tags){
+            if(err){
+                req.flash('error',err);
+            }
+            res.render('info-form',{tags:tags}); //从数据库中读出所有类型，生成勾选键在信息填写表
+        })
+    })
+
+    app.post('/writeForm',function(req,res){
+        var diyTag=req.body.diyTag;
+        var tagArr=diyTag.trim().split(/\s+/);//用正则表达式才能把多的空格也弄掉
+
+        console.log("TAGARR "+tagArr);
+
+        for(tag in tagArr){
+            var newTag = new Tag({
+                name: tagArr[tag]
+            });
+
+            newTag.save(function(err) { //如果没有重复的是ok的 以下5行
+                if (err) {
+                    console.log("SAVE ERROR"+err);
+                    req.flash('error', err);
+                }
+            });
+
+
+            // console.log("EACH TAG:"+tagArr[tag]);
+            // //如果不存在則新增tag
+            // newTag.save(function (err) {
+            //     if (err) {
+            //         // req.flash('error', "save error"+err);
+            //         console.log("SAVE ERROR DB? "+error);
+            //         return res.redirect('/writeForm');
+            //     }
+            //     res.redirect('/showBoard');
+            // });
+
+
+            //如果不存在則新增用戶
+            // newUser.save(function (err) {
+            //     if (err) {
+            //         req.flash('error', err);
+            //         return res.redirect('/register');
+            //     }
+            //     req.session.user = newUser;
+            //     req.flash('success', '註冊成功');
+            //     res.redirect('/login');
+            // });
+
+            //檢查tag是否已經存在
+            // Tag.get(newTag.name, function (err, tag) {
+            //
+            //     console.log("START CHECK TAG "+newTag.name);
+            //
+            //     if (!tag){
+            //         // err = newTag.name + ' already exists.';
+            //         console.log("DONT exist "+newTag.name);
+            //
+            //         //如果不存在則新增tag
+            //         newTag.save(function (err) {
+            //             if (err) {
+            //                 req.flash('error', "save error"+err);
+            //                 console.log("SAVE ERROR DB? "+error);
+            //                 // res.redirect('/writeForm');
+            //             }
+            //
+            //         });
+            //     }
+            //
+            //     if (err) {
+            //         req.flash('error', err);
+            //         // res.redirect('/writeForm');
+            //         console.log("ERROR DB? "+error);
+            //
+            //     }
+            //
+            // });
+        }
+
+        req.flash('success', 'New tags save successfully');
+        res.redirect('/showBoard');
+
+        // next();
+    });
+
 };
 
 function checkLogin(req, res, next) {

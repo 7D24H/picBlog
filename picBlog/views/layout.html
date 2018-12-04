@@ -24,7 +24,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a id="headTitle" class="brand title" href="/"><i id="titleLogo">123</i>MusicBlog</a>
+            <a id="headTitle" class="brand title" ><i id="titleLogo">123</i>MusicBlog</a>
             <div class="nav-collapse ">
                 <ul id="data-navbar" class="nav pull-right">
                     <!--<li class="active"><a href="/">Home</a></li>-->
@@ -65,11 +65,11 @@
     <!--</footer>-->
 </div>
 
+
+<script src="/javascripts/util.js"></script>
 <script>
     window.onload=function(){
-        var c=document.cookie;
-        var username=c.substring(c.indexOf('=')+1,c.length);
-        document.getElementById("username").innerHTML=username;
+        document.getElementById("username").innerHTML=getCookie("user");
     }
 </script>
 

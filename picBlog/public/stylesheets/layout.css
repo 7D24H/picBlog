@@ -15,7 +15,7 @@
 
 #titleLogo{
     /*background-color: rgba(174, 126, 84, 0.98);*/
-    background-image: url("/images/util/music-double.png");
+    background-image: url("/images/util/logo.png");
     background-repeat: no-repeat;
     background-size:35px 35px;
     background-position:0 0 ;
@@ -35,11 +35,6 @@
 
 .btn-navbar {
     background-color: rgba(79, 55, 106, 0.9);
-}
-
-.a,.li,.brand,.nav,.container,.navbar-inner,.nav-collapse{
-    /*background-color: #00B7FF;*/
-    height:60px;
 }
 
 .nav{
@@ -100,4 +95,26 @@
 
 #searchBtn:hover{
     background: #b478ff;
+}
+
+
+#back{
+    float:left;
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url("/images/util/back.png");
+    background-repeat: no-repeat;
+    background-size:30px 30px;
+    color: rgba(255, 255, 255, 0);
+    width:32px;
+    height:32px;
+    border:solid rgba(255, 255, 255, 0);
+    border-radius: 16px;
+    outline: none;
+    cursor: pointer;
+}
+
+#back:hover{
+    background-color: rgba(255, 255, 255, 0.07);
+    background-image: url("/images/util/back-hover.png");
+    box-shadow:3px 0px 2px #7e7e7e;
 }

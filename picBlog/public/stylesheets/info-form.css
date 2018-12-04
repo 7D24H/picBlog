@@ -1,0 +1,20 @@
+#wholeForm{
+    display:flex;
+    margin-top:20px;
+    /*height:100%;*/
+}
+
+
+
+#imgPlace{
+    background-color: red;
+}
+
+#infoPlace{
+    background-color: yellow;
+}
+
+.flex-item{
+    width:45%;
+    margin-right:5%;
+}

@@ -1,0 +1,69 @@
+
+<link rel="stylesheet" href="/stylesheets/info-form.css"/>
+<section id="wholeForm">
+    <div class="flex-item" id="imgPlace">
+        <div id="imgBorder">
+            <img id="savedPic" src="">
+        </div>
+
+    </div>
+    <div class="flex-item" id="infoPlace">
+
+        <form id="infoForm" class="form-horizontal" method="post">
+            <fieldset>
+                <legend>Information</legend>
+                <!--<div class="control-group">-->
+                    <!--<label class="control-label" for="song">Song</label>-->
+                    <!--<div class="controls">-->
+                        <!--<input type="text" class="input-xlarge" id="song" name="song">-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="control-group">-->
+                    <!--<label class="control-label" for="singer">Singer</label>-->
+                    <!--<div class="controls">-->
+                        <!--<input type="text" class="input-xlarge" id="singer" name="singer">-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+                <div class="control-group">
+                    <label class="control-label">Tag</label>
+                    <div class="controls">
+                        <ul>
+                            <% tags.forEach(function(tagItem){%>
+                                <input type="checkbox"
+                                       name=<%= tagItem.name %> ><%= tagItem.name %>
+                                <%}) %>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="diyTag">DIY Tag</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="diyTag" name="diyTag"
+                            placeholder="Please seperate your tags with whitespace">
+                    </div>
+                </div>
+
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+</section>
+
+
+
+<!--工具方法要放在上面，下面的才能调用-->
+<script src="/javascripts/util.js"></script>
+<script>
+    var pictureName=getCookie("pictureName");
+    var pic=document.getElementById("savedPic");
+    //把刚才编辑过保存的图放这
+    pic.src="/uploads/"+pictureName+".png";
+</script>

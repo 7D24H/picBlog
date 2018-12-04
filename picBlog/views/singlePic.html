@@ -14,25 +14,21 @@
 
 <body>
 
-<!--<select name="yourName" id="yourId">-->
-<!--<option value="1">1</option>-->
-<!--<option value="2">2</option>-->
-<!--<option value="3">3</option>-->
-<!--<option value="4">4</option>-->
-<!--<option value="5">5</option>-->
-<!--</select>-->
+    <button id="back" onclick="window.location.href='/showBoard'">Back</button>
 
-<form method="get" action="upload.html"> <!要有那个点！>
-    <button id="back" type="submit">Back</button>
-</form>
+    <div id="img-container" >
+        <div class="img-up-add  img-item"> <span class="img-add-icon">Select your local picture</span> </div>
+        <!--//这层是真正加载本地图片的-->
+        <input type="file" name="files" id="img-file-input" onchange="imgPreview(this)">
+    </div>
 
-<section id="input">
-    <input id="inputFile" type="file" name="file" onchange="imgPreview(this)">
-</section>
-
+<br>
 <button class="funBtn" id="edit" type="submit">Edit</button>
 <div id="btnBar">
-    <button class="funBtn" id="saveBtn" type="submit" onclick="">Save</button>
+
+    <button class="funBtn" id="saveBtn" type="submit" onclick=""><a href="/writeForm"></a></button>
+    <br>
+    <br>
     <button class="funBtn" id="rotateRight" type="submit"></button>
     <br>
     <button class="funBtn" id="rotateLeft" type="submit"></button>
@@ -50,7 +46,7 @@
 
 <br>
 
-<form class="showPic" method="post" enctype="multipart/form-data">
+<form id="picShow" class="showPic" method="post" enctype="multipart/form-data">
     <section id="border">
         <!--<canvas id="canvasImg">-->
             <img id="image" />
