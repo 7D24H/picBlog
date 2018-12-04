@@ -1,0 +1,71 @@
+body{
+    /*background-image: url("/images/upload-background.jpg");*/
+    background-color: rgba(149, 133, 156, 0.91);
+
+}
+
+#nextBackground{
+    /*background-color: rgba(255, 0, 0, 0.69);*/
+    /*background-color:rgba(0,0,0,0.5);*/
+    /*margin:-30px -10px -100px -10px;*/
+    potision:absolute;
+    /*margin-bottom:-1000px;*/
+    /*padding-bottom: 200px;*/
+    background-size: cover;
+
+}
+
+
+form{
+    display: inline-block;
+}
+
+#select{
+    margin-top:30px;
+}
+
+#single,#multiple{
+    margin-top:100px;
+    margin-left:200px;
+    width:300px;
+    height:300px;
+    background-color: rgba(255, 255, 255, 0.91);
+    font-size:27px;
+    font-weight: bold;
+    /*padding-top:20px;*/
+    font-family: "Segoe Script";
+    border:0px;
+    border-radius: 150px;
+    box-shadow:-15px 0px 10px #5c5c5c;
+    cursor:pointer;
+    outline: none;//为了消去点击时出现的蓝框框
+}
+
+#single:hover,#multiple:hover{
+    background-color: rgb(255, 255, 255);
+    font-weight: normal;
+    box-shadow:-15px 0px 20px #7e7e7e;
+}
+
+/*#back{*/
+    /*float:left;*/
+    /*background-color: rgba(255, 255, 255, 0);*/
+    /*background-image: url("/images/util/back.png");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size:30px 30px;*/
+    /*color: rgba(255, 255, 255, 0);*/
+    /*width:32px;*/
+    /*height:32px;*/
+    /*border:solid rgba(255, 255, 255, 0);*/
+    /*border-radius: 16px;*/
+    /*outline: none;*/
+    /*cursor: pointer;*/
+    /*margin-top:10px;*/
+/*}*/
+
+/*#back:hover{*/
+    /*background-color: rgba(255, 255, 255, 0.21);*/
+    /*background-image: url("/images/util/back-hover.png");*/
+    /*box-shadow:3px 0px 2px #7e7e7e;*/
+/*}*/
+

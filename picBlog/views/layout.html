@@ -27,7 +27,8 @@
             <a id="headTitle" class="brand title" ><i id="titleLogo">123</i>MusicBlog</a>
             <div class="nav-collapse ">
                 <ul id="data-navbar" class="nav pull-right">
-                    <!--<li class="active"><a href="/">Home</a></li>-->
+                    <li id="baidu"><a href="baidu.html"><span id="baiduWord"></span></a></li>
+
                     <% if (!user) { %>
                     <li><a href="/login"><span class="log">Login</span></a></li>
                     <li><a href="/register"><button id="regBtn">Register</button></a></li>
@@ -74,6 +75,6 @@
 </script>
 
 </body>
-<script src="/javascripts/jquery.js"></script>
-<script src="/javascripts/bootstrap.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.js"></script>
+<script type="text/javascript" src="/javascripts/bootstrap.js"></script>
 </html>

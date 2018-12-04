@@ -1,23 +1,26 @@
 var mongodb = require('./db');
 
-function Post(username, post, time) {
-    this.user = username;
-    this.post = post;
-    if (time) {
-        this.time = time;
-    } else {
-        this.time = new Date();
-    }
+function Post(username, pictureName, song, singer ,description, tagArr) {
+    this.username=username;
+    this.pictureName=pictureName;
+    this.song=song;
+    this.singer=singer;
+    this.description=description;
+    this.tagArr=tagArr;
 };
 module.exports = Post;
 
 Post.prototype.save = function save(callback) {
     // 存入 Mongodb 的文檔
     var post = {
-        user: this.user,
-        post: this.post,
-        time: this.time,
+        username: this.username,
+        pictureName: this.pictureName,
+        song: this.song,
+        singer:this.singer,
+        description:this.description,
+        tagArr:this.tagArr
     };
+
     mongodb.open(function(err, db) {
         if (err) {
             return callback(err);
@@ -29,7 +32,7 @@ Post.prototype.save = function save(callback) {
                 return callback(err);
             }
             // 爲 user 屬性添加索引
-            collection.ensureIndex('user');
+            collection.ensureIndex('pictureName');
             // 寫入 post 文檔
             collection.insert(post, {safe: true}, function(err, post) {
                 mongodb.close();
@@ -39,7 +42,7 @@ Post.prototype.save = function save(callback) {
     });
 };
 
-Post.get = function get(username, callback) {
+Post.getAll = function getAll(callback) {
     mongodb.open(function(err, db) {
         if (err) {
             return callback(err);
@@ -51,11 +54,11 @@ Post.get = function get(username, callback) {
                 return callback(err);
             }
             // 查找 user 屬性爲 username 的文檔，如果 username 是 null 則匹配全部
-            var query = {};
-            if (username) {
-                query.user = username;
-            }
-            collection.find(query).sort({time: -1}).toArray(function(err, docs) {
+            // var query = {};
+            // if (username) {
+            //     query.user = username;
+            // }
+            collection.find().toArray(function(err, docs) {
                 mongodb.close();
                 if (err) {
                     callback(err, null);
@@ -63,7 +66,13 @@ Post.get = function get(username, callback) {
                 // 封裝 posts 爲 Post 對象
                 var posts = [];
                 docs.forEach(function(doc, index) {
-                    var post = new Post(doc.user, doc.post, doc.time);
+                    var post = new Post(doc.username,
+                                        doc.pictureName,
+                                        doc.song,
+                                        doc.singer,
+                                        doc.description,
+                                        doc.tagArr);
+
                     posts.push(post);
                 });
                 callback(null, posts);

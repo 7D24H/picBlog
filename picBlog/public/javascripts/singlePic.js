@@ -149,7 +149,7 @@ edit.addEventListener("click",function(){
                 console.log(xhr.status)
             }
         }
-        xhr.open('POST','http://localhost:3000/test',true);
+        xhr.open('POST','http://localhost:3000/edit',true);
         xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  //formdata数据请求头需设置为application/x-www-form-urlencoded
         xhr.send("imgData="+img);//要在前面加上键值 才能直接在req里取到
         xhr.send("hello="+'hello');

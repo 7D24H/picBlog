@@ -15,12 +15,14 @@ Tag.prototype.save = function save(callback) {
     // var mongodb = require('./db');
     mongodb.open(function(err, db) {
         if (err) {
+            console.log("FIRST ERROR"+err);
             return callback(err);
         }
         // 讀取 tags 集合
         db.collection('tags', function(err, collection) {
             if (err) {
                 mongodb.close();
+                console.log("SECOND ERROR"+err);
                 return callback(err);
             }
             // 爲 name 屬性添加索引
@@ -29,6 +31,7 @@ Tag.prototype.save = function save(callback) {
             collection.insert(tag, {safe: true}, function(err, tag) {
                 mongodb.close();
                 console.log("INSERT OK");
+                console.log("THIRD ERROR"+err);
                 callback(err, tag);
             });
         });

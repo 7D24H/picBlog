@@ -2,40 +2,53 @@
 <link rel="stylesheet" href="/stylesheets/info-form.css"/>
 <section id="wholeForm">
     <div class="flex-item" id="imgPlace">
-        <div id="imgBorder">
-            <img id="savedPic" src="">
-        </div>
+        <form id="imgForm" class="form-horizontal" method="post">
+            <legend>Picture</legend>
+            <div id="imgBorder">
+                <img id="savedPic" src="">
+            </div>
+        </form>
+
+
 
     </div>
-    <div class="flex-item" id="infoPlace">
 
+    <div class="flex-item" id="infoPlace">
         <form id="infoForm" class="form-horizontal" method="post">
             <fieldset>
                 <legend>Information</legend>
-                <!--<div class="control-group">-->
-                    <!--<label class="control-label" for="song">Song</label>-->
-                    <!--<div class="controls">-->
-                        <!--<input type="text" class="input-xlarge" id="song" name="song">-->
-                    <!--</div>-->
-                <!--</div>-->
 
-                <!--<div class="control-group">-->
-                    <!--<label class="control-label" for="singer">Singer</label>-->
-                    <!--<div class="controls">-->
-                        <!--<input type="text" class="input-xlarge" id="singer" name="singer">-->
-                    <!--</div>-->
-                <!--</div>-->
+                <div class="control-group">
+                    <div class="controls">
+                        <input type="hidden" class="input-xlarge" id="picturePath" name="picturePath" value="">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="song">Song</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="song" name="song">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="singer">Singer</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="singer" name="singer">
+                    </div>
+                </div>
 
 
                 <div class="control-group">
                     <label class="control-label">Tag</label>
-                    <div class="controls">
-                        <ul>
+                    <div  class="controls">
+                        <div id="checkboxBar">
                             <% tags.forEach(function(tagItem){%>
-                                <input type="checkbox"
-                                       name=<%= tagItem.name %> ><%= tagItem.name %>
+                                <input type="checkbox" class="checkboxItem"
+                                       name="checkboxTag"
+                                       value=<%= tagItem.name %>><%= tagItem.name %>
                                 <%}) %>
-                        </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -47,10 +60,25 @@
                     </div>
                 </div>
 
+                <div class="control-group">
+                    <label class="control-label" for="description">Description</label>
+                    <div class="controls">
+                        <textarea id="description" name="description"></textarea>
+                        <!--<input id="textarea" type="textarea" class="input-xlarge" id="description" name="description">-->
+                    </div>
+                </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Post</button>
+                    <button id="postBtn" type="submit" class="btn btn-primary">Post</button>
                 </div>
+
+                <style>
+                    .form-actions{
+                        background-color: rgba(255, 0, 0, 0);
+                        border: solid 1px rgba(255, 255, 255, 0);
+                    }
+                </style>
+
             </fieldset>
         </form>
 
@@ -66,4 +94,8 @@
     var pic=document.getElementById("savedPic");
     //把刚才编辑过保存的图放这
     pic.src="/uploads/"+pictureName+".png";
+
+    document.getElementById("picturePath").value=pic.src;
+
+
 </script>

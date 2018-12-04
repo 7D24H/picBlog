@@ -118,3 +118,23 @@
     background-image: url("/images/util/back-hover.png");
     box-shadow:3px 0px 2px #7e7e7e;
 }
+
+
+#baidu{
+    /*background-color: #0e90d2 ;*/
+    /*background-image: url("/images/util/add.png");*/
+    width:40px;
+    height:40px;
+    background-image: url("/images/util/baidu.png");
+    background-repeat: no-repeat;
+    background-size:35px 35px;
+    background-position:center ;
+    cursor:pointer;
+}
+#baidu:hover{
+    background-image: url("/images/util/baidu-colorful.png");
+}
+
+#baiduWord{
+    color: rgba(255, 0, 0, 0);
+}

@@ -1,6 +1,7 @@
 var crypto = require('crypto');
 var User = require('../models/user.js');
 var Tag = require('../models/tag.js');
+var Post = require('../models/post.js');
 // var fs = require('fs');
 // var bodyParser=require('body-parser');
 
@@ -130,15 +131,32 @@ module.exports = function(app) {
 
     app.get('/showBoard', checkLogin);
     app.get('/showBoard', function (req, res) {
-        console.log("username is :", req.session.user.name);
-        res.render('showBoard', {username: req.session.user.name});
+
+        // var postArr=[];
+        Post.getAll(function(err,posts){
+            if(err){
+                req.flash('error',"POST ERROR "+err);
+            }
+            // postArr=posts;
+            res.render('showBoard', {username: req.session.user.name,posts:posts});
+            // res.send(posts);
+        });
+
+        // res.render('showBoard', {username: req.session.user.name,posts:postArr});
+        // console.log("username is :", req.session.user.name);
+
     });
 
-    app.get('/test', function (req, res) {
+
+    app.get('/choice',function(req,res){
+        res.render('upload');
+    })
+
+    app.get('/edit', function (req, res) {
         res.render('singlePic');
     });
 
-    app.post('/test',function (req, res) {
+    app.post('/edit',function (req, res) {
         //这个成功有base64
         var imgData = req.body.imgData;
         //过滤data:URL
@@ -163,6 +181,10 @@ module.exports = function(app) {
         // return res.redirect('/writeForm');
     });
 
+    app.get('/stitch',function(req,res){
+        res.render('multiplePic');
+    })
+
     app.get('/writeForm',checkLogin);
     app.get('/writeForm',function(req,res){
         Tag.get("",function(err,tags){
@@ -174,81 +196,71 @@ module.exports = function(app) {
     })
 
     app.post('/writeForm',function(req,res){
-        var diyTag=req.body.diyTag;
-        var tagArr=diyTag.trim().split(/\s+/);//用正则表达式才能把多的空格也弄掉
 
-        console.log("TAGARR "+tagArr);
+        var username=req.cookies.user;
+        // var pictureName=req.cookies.pictureName; //没有.png后缀
+        var pictureName=req.body.picturePath; //有.png后缀
 
-        for(tag in tagArr){
-            var newTag = new Tag({
-                name: tagArr[tag]
-            });
+        var song=req.body.song;
+        var singer=req.body.singer;
+        var description=req.body.description;
+        var checkbox=req.body.checkboxTag;  //是所有选中的数组 是值 HK,TW China这样的,没选就是undefined
+        var diyTag=req.body.diyTag;//没写就是length==0
 
-            newTag.save(function(err) { //如果没有重复的是ok的 以下5行
-                if (err) {
-                    console.log("SAVE ERROR"+err);
-                    req.flash('error', err);
-                }
-            });
+        var allTags=[];
 
-
-            // console.log("EACH TAG:"+tagArr[tag]);
-            // //如果不存在則新增tag
-            // newTag.save(function (err) {
-            //     if (err) {
-            //         // req.flash('error', "save error"+err);
-            //         console.log("SAVE ERROR DB? "+error);
-            //         return res.redirect('/writeForm');
-            //     }
-            //     res.redirect('/showBoard');
-            // });
-
-
-            //如果不存在則新增用戶
-            // newUser.save(function (err) {
-            //     if (err) {
-            //         req.flash('error', err);
-            //         return res.redirect('/register');
-            //     }
-            //     req.session.user = newUser;
-            //     req.flash('success', '註冊成功');
-            //     res.redirect('/login');
-            // });
-
-            //檢查tag是否已經存在
-            // Tag.get(newTag.name, function (err, tag) {
-            //
-            //     console.log("START CHECK TAG "+newTag.name);
-            //
-            //     if (!tag){
-            //         // err = newTag.name + ' already exists.';
-            //         console.log("DONT exist "+newTag.name);
-            //
-            //         //如果不存在則新增tag
-            //         newTag.save(function (err) {
-            //             if (err) {
-            //                 req.flash('error', "save error"+err);
-            //                 console.log("SAVE ERROR DB? "+error);
-            //                 // res.redirect('/writeForm');
-            //             }
-            //
-            //         });
-            //     }
-            //
-            //     if (err) {
-            //         req.flash('error', err);
-            //         // res.redirect('/writeForm');
-            //         console.log("ERROR DB? "+error);
-            //
-            //     }
-            //
-            // });
+        //如果有选择标签
+        if(checkbox){
+            //因为checkbox可能是一个 也可能是数组 所以要把它变成字符串再手动改一次
+            var cbStr=checkbox.toString();
+            var cbArr=cbStr.split(",");
+            for(t in cbArr){
+                allTags.push(cbArr[t]);
+            }
         }
 
-        req.flash('success', 'New tags save successfully');
+        //如果有新的diy tag加入 加到数据库（默认都是不一样的） 并加入allTags中
+        if(diyTag.length>0){
+            var tagArr=diyTag.trim().split(/\s+/);//用正则表达式才能把多的空格也弄掉
+
+            for(tag in tagArr){
+                allTags.push(tagArr[tag]);
+                var newTag = new Tag({
+                    name: tagArr[tag]
+                });
+
+                newTag.save(function(err) { //如果没有重复的是ok的 以下5行
+                    if (err) {
+                        console.log("SAVE ERROR"+err);
+                        req.flash('error', err);
+                    }
+                });
+
+            }
+        }
+
+        // var newPost = new Post({
+        //     username: username,
+        //     pictureName: pictureName,
+        //     song: song,
+        //     singer:singer,
+        //     description:description,
+        //     tagArr:allTags
+        // });
+
+        var newPost = new Post(username,pictureName,song,singer,description,allTags);
+
+        newPost.save(function(err) { //如果没有重复的是ok的 以下5行
+            if (err) {
+                console.log("SAVE ERROR"+err);
+                req.flash('error', err);
+            }
+        });
+
+        res.clearCookie('pictureName');
+        req.flash('success', 'Post new song successfully');
         res.redirect('/showBoard');
 
-        // next();
     });
 
 };

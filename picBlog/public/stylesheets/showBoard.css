@@ -4,8 +4,8 @@ body{
 }
 
 #nextBackground{
-    background-color:rgba(0,0,0,0.5);
-    margin:-30px -10px -100px -10px;
+    background-color: rgba(149, 133, 156, 0.91);
+    /*margin:-30px -10px -100px -10px;*/
     padding-bottom: 50px;
     background-size: cover;
 
@@ -16,8 +16,9 @@ button:hover{
 }
 
 #uploadBtn{
+    /*position:absolute;*/
     float:right;
-    margin-top:40px;
+    margin-top:20px;
     margin-right:20px;
     height:40px;
     width:100px;
@@ -45,7 +46,7 @@ button:hover{
 .showCase{
     background-color:white;
     width:28%;
-    height: 450px;
+    height: 420px;
     border:0.5px solid rgba(6, 6, 6, 0.3);
     float:left;
     margin-top:30px;
@@ -81,8 +82,17 @@ button:hover{
 img{
     border:15px rgba(255, 149, 63, 0.05) solid;
     max-width: 90%;
+    max-height:300px;
+    position:center;
+    display:block;
+    margin: auto;
     /*max-height: 350px;*/
     /*border-color: black;*/
+}
+
+.showPic{
+    position:center;
+    margin: auto;
 }
 
 .textPlace{
@@ -99,6 +109,13 @@ img{
     font-size: medium;
     color:darkgray;
 }
+
+.tagArr{
+    margin-top:5px;
+    margin-left:5px;
+    color: #9a40ff;
+}
+
 
 .longName{
     float: right;

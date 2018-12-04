@@ -5,16 +5,51 @@
 }
 
 
-
-#imgPlace{
-    background-color: red;
-}
-
 #infoPlace{
-    background-color: yellow;
+    /*background-color: rgba(149, 133, 156, 0.91);*/
 }
 
 .flex-item{
     width:45%;
     margin-right:5%;
+}
+
+#imgPlace{
+    /*background-color: rgba(149, 133, 156, 0.91);*/
+}
+
+#imgBorder{
+    display:block;
+    margin:auto;//这个也帮助实现居中
+    position:center;
+    width:90%;
+    height:90%;
+    border:dashed rgb(187, 165, 195) 1px;
+}
+
+#savedPic{
+    padding-top:20px;
+    max-height: 400px;
+    max-width: 100%;
+
+    display:block;
+    margin:auto;//这个也帮助实现居中
+}
+
+
+#checkboxBar{
+    flex-direction: row;
+    flex-wrap: wrap; //换行
+justify-content: flex-start;
+    /*background-color: red;*/
+    width:300px;
+    /*width:90%;*/
+}
+.checkboxItem{
+    width:100px;
+}
+
+#description{
+    height:50px;
+    width:270px;
 }
